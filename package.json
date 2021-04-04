@@ -1,7 +1,7 @@
 {
   "name": "iron-duke-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.js",
   "author": "Takeda Chiharu <takeda123pc@gmail.com>",
   "license": "MIT",
   "dependencies": {
