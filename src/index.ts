@@ -2,22 +2,25 @@ import 'reflect-metadata';
 import { ApolloServer } from 'apollo-server-express';
 import Exporess from 'express';
 import { buildSchema } from 'type-graphql';
-import {ToDoListResolver} from './Resolver/TodoListResolver'
-
+import { createConnection } from 'typeorm';
+import { ToDoListResolver } from './Resolver/TodoListResolver';
 
 const startApollo = async () => {
-  
+  //ormconfig.jsonをもとにデータベースに接続
+  await createConnection();
+
+  //リゾルバーからスキーマ作る
   const schema = await buildSchema({
     resolvers: [ToDoListResolver],
   });
 
+  //スキーマからapolloサーバー立てる
   const apolloServer = new ApolloServer({
     schema,
-    mocks: true,
   });
 
   const app = Exporess();
-  
+
   apolloServer.applyMiddleware({ app });
 
   app.listen(4000, () => {
