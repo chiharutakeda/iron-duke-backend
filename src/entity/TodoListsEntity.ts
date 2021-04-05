@@ -1,5 +1,11 @@
 import { Field, ObjectType, ID } from 'type-graphql';
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BaseEntity,
+  CreateDateColumn,
+} from 'typeorm';
 
 @ObjectType()
 @Entity()
@@ -19,4 +25,8 @@ export class TodoListEntity extends BaseEntity {
   @Field()
   @Column()
   todo: String;
+
+  @Field()
+  @CreateDateColumn()
+  createdAt: Date;
 }
