@@ -14,19 +14,19 @@ export class TodoListEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Field()
+  @Field({ description: '苗字を返す' })
   @Column()
   firstName: String;
 
-  @Field()
+  @Field({ description: '名前を返す' })
   @Column()
   lastName: String;
 
-  @Field()
+  @Field({ description: 'やることリストを返す' })
   @Column()
   todo: String;
 
-  @Field()
+  @Field({ description: '登録日を返す' })
   @CreateDateColumn()
   createdAt: Date;
 }
