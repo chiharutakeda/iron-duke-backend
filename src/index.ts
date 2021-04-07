@@ -12,6 +12,7 @@ const startApollo = async () => {
   //リゾルバーからスキーマ作る
   const schema = await buildSchema({
     resolvers: [ToDoListResolver],
+    emitSchemaFile:true
   });
 
   //スキーマからapolloサーバー立てる
