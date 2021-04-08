@@ -19,7 +19,6 @@ export class ToDoListResolver {
   @Query(() => [TodoListEntity], { nullable: true })
   async getAllToDolist() {
     const todo = await TodoListEntity.find();
-    console.log(todo)
     return todo;
   }
 
@@ -33,8 +32,7 @@ export class ToDoListResolver {
       lastName: lastName,
       todo: todo,
     });
-    //保存する。
-    createdToDo.save();
-    return createdToDo;
+    //保存してその内容をreturnする。
+    return createdToDo.save();
   }
 }
