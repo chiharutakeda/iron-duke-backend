@@ -4,6 +4,7 @@ import Exporess from 'express';
 import { buildSchema } from 'type-graphql';
 import { createConnection } from 'typeorm';
 import { ToDoListResolver } from './Resolver/TodoListResolver';
+import { UserInfoResolver } from './Resolver/UserInfoResolver';
 
 const startApollo = async () => {
   //ormconfig.jsonをもとにデータベースに接続
@@ -11,8 +12,8 @@ const startApollo = async () => {
 
   //リゾルバーからスキーマ作る
   const schema = await buildSchema({
-    resolvers: [ToDoListResolver],
-    emitSchemaFile:true
+    resolvers: [ToDoListResolver, UserInfoResolver],
+    emitSchemaFile: true,
   });
 
   //スキーマからapolloサーバー立てる
