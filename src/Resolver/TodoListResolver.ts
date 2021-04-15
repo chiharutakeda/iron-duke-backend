@@ -9,13 +9,14 @@ export class ToDoListResolver {
     return 'hello world!!';
   }
 
+  //一番若いidのtodoを返す
   @Query(() => TodoListEntity, { nullable: true })
   async getToDolist() {
     const todo = await TodoListEntity.findOne();
     return todo;
   }
 
-  //配列指定のやり方
+  //全てのtodoを返す
   @Query(() => [TodoListEntity], { nullable: true })
   async getAllToDolist() {
     const todo = await TodoListEntity.find();
