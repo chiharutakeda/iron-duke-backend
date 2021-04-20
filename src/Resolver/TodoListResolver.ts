@@ -19,7 +19,7 @@ export class ToDoListResolver {
   //全てのtodoを返す
   @Query(() => [TodoListEntity], { nullable: true })
   async getAllToDolist() {
-    const todo = await TodoListEntity.find();
+    const todo = await TodoListEntity.find({order:{id:"DESC"}});
     return todo;
   }
 
