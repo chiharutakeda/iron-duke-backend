@@ -16,3 +16,9 @@ export class TodoListInputType {
   @Length(1, 500)
   todo: string;
 }
+
+@InputType()
+export class TodoListDeleteInputType {
+  @Field()
+  ID: number;
+}

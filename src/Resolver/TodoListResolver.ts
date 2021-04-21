@@ -1,6 +1,9 @@
 import { Resolver, Query, Mutation, Arg } from 'type-graphql';
 import { TodoListEntity } from '../entity/TodoListsEntity';
-import { TodoListInputType } from '../Inputtype/TodoListInputType';
+import {
+  TodoListInputType,
+  TodoListDeleteInputType,
+} from '../Inputtype/TodoListInputType';
 
 @Resolver(TodoListEntity)
 export class ToDoListResolver {
@@ -19,7 +22,7 @@ export class ToDoListResolver {
   //全てのtodoを返す
   @Query(() => [TodoListEntity], { nullable: true })
   async getAllToDolist() {
-    const todo = await TodoListEntity.find({order:{id:"DESC"}});
+    const todo = await TodoListEntity.find({ order: { id: 'DESC' } });
     return todo;
   }
 
@@ -35,5 +38,16 @@ export class ToDoListResolver {
     });
     //保存してその内容をreturnする。
     return createdToDo.save();
+  }
+
+  //todo削除
+  @Mutation(() => TodoListEntity)
+  async DeleteToDo(@Arg('deleteTODO') { ID }: TodoListDeleteInputType) {
+    //返すためにidで検索して
+    const todo = await TodoListEntity.findOne({ id: ID });
+    //削除する
+    await TodoListEntity.delete({ id: ID });
+
+    return todo;
   }
 }
