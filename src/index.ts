@@ -1,6 +1,5 @@
 import 'reflect-metadata';
-import { ApolloServer } from 'apollo-server-express';
-import Exporess from 'express';
+import { ApolloServer } from 'apollo-server';
 import { buildSchema } from 'type-graphql';
 import { createConnection } from 'typeorm';
 import { ToDoListResolver } from './Resolver/TodoListResolver';
@@ -21,11 +20,7 @@ const startApollo = async () => {
     schema,
   });
 
-  const app = Exporess();
-
-  apolloServer.applyMiddleware({ app });
-
-  app.listen(4000, () => {
+  apolloServer.listen(4000, () => {
     console.log('server started on http://localhost:4000/graphql');
   });
 };
