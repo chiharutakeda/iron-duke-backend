@@ -2,6 +2,7 @@ import { hash, compare } from 'bcryptjs';
 import { Resolver, Query, Mutation, Arg } from 'type-graphql';
 import { UserInfoEntity, LoginResponse } from '../entity/UserInfoEntity';
 import { UserInfoInputType } from '../Inputtype/UserInfoInputType';
+import { sign } from 'jsonwebtoken';
 
 @Resolver(UserInfoEntity)
 export class UserInfoResolver {
@@ -35,7 +36,7 @@ export class UserInfoResolver {
       throw new Error('not find user');
     }
     //保存してその内容をreturnする。
-    return { accessToken: 'ssss' };
+    return { accessToken: sign({userId:user.id},"iron-duke",{expiresIn:"15m"}) };
   }
 
   //ユーザー新規登録
