@@ -16,11 +16,11 @@ export class UserInfoEntity extends BaseEntity {
 
   @Field({ description: 'emailを返す' })
   @Column()
-  email: String;
+  email: string;
 
   @Field({ description: 'passwordを返す' })
   @Column()
-  password: String;
+  password: string;
 
   @Field({ description: '登録日を返す' })
   @CreateDateColumn()

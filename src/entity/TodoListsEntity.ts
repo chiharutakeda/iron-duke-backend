@@ -16,15 +16,15 @@ export class TodoListEntity extends BaseEntity {
 
   @Field({ description: '苗字を返す' })
   @Column()
-  firstName: String;
+  firstName: string;
 
   @Field({ description: '名前を返す' })
   @Column()
-  lastName: String;
+  lastName: string;
 
   @Field({ description: 'やることリストを返す' })
   @Column()
-  todo: String;
+  todo: string;
 
   @Field({ description: '登録日を返す' })
   @CreateDateColumn()
