@@ -1,6 +1,6 @@
 import { hash, compare } from 'bcryptjs';
 import { Resolver, Query, Mutation, Arg } from 'type-graphql';
-import { UserInfoEntity } from '../entity/UserInfoEntity';
+import { UserInfoEntity, LoginResponse } from '../entity/UserInfoEntity';
 import { UserInfoInputType } from '../Inputtype/UserInfoInputType';
 
 @Resolver(UserInfoEntity)
@@ -13,8 +13,10 @@ export class UserInfoResolver {
   }
 
   //ログインする。
-  @Mutation(() => UserInfoEntity, { nullable: true })
-  async Login(@Arg('LoginData') { email, password }: UserInfoInputType) {
+  @Mutation(() => LoginResponse, { nullable: true })
+  async Login(
+    @Arg('LoginData') { email, password }: UserInfoInputType
+  ): Promise<LoginResponse> {
     //ユーザーデータ取得
     const user = await UserInfoEntity.findOne({
       where: {
@@ -33,7 +35,7 @@ export class UserInfoResolver {
       throw new Error('not find user');
     }
     //保存してその内容をreturnする。
-    return user;
+    return { accessToken: 'ssss' };
   }
 
   //ユーザー新規登録

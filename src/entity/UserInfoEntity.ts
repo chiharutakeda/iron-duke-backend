@@ -26,3 +26,10 @@ export class UserInfoEntity extends BaseEntity {
   @CreateDateColumn()
   createdAt: Date;
 }
+
+//これはgraphqlのフィールドになる
+@ObjectType()
+export class LoginResponse {
+  @Field()
+  accessToken: string;
+}
