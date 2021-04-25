@@ -1,9 +1,10 @@
+
 import { hash, compare } from 'bcryptjs';
-import { Resolver, Query, Mutation, Arg } from 'type-graphql';
+import { Resolver, Query, Mutation, Arg, Ctx } from 'type-graphql';
 import { UserInfoEntity, LoginResponse } from '../entity/UserInfoEntity';
 import { UserInfoInputType } from '../Inputtype/UserInfoInputType';
-import { sign } from 'jsonwebtoken';
-
+import { ContextType } from '../context/context';
+import { createToken, refreshToken } from '../lib/token';
 @Resolver(UserInfoEntity)
 export class UserInfoResolver {
   //全てのユーザーデータを取得
@@ -12,11 +13,11 @@ export class UserInfoResolver {
     const AllUserInfo = await UserInfoEntity.find();
     return AllUserInfo;
   }
-
   //ログインする。
   @Mutation(() => LoginResponse, { nullable: true })
   async Login(
-    @Arg('LoginData') { email, password }: UserInfoInputType
+    @Arg('LoginData') { email, password }: UserInfoInputType,
+    @Ctx() { res }: ContextType
   ): Promise<LoginResponse> {
     //ユーザーデータ取得
     const user = await UserInfoEntity.findOne({
@@ -35,8 +36,14 @@ export class UserInfoResolver {
     if (!isPassOk) {
       throw new Error('not find user');
     }
-    //保存してその内容をreturnする。
-    return { accessToken: sign({userId:user.id},"iron-duke",{expiresIn:"15m"}) };
+
+    //クッキーにトークンをのせて返す
+    res.cookie('ironduke2', refreshToken(user));
+
+    //grapgqlのフィールドとしてトークンを返す
+    return {
+      accessToken: createToken(user),
+    };
   }
 
   //ユーザー新規登録
