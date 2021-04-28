@@ -26,7 +26,7 @@ export class ToDoListResolver {
     return todo;
   }
 
-  @Mutation(() => TodoListEntity)
+  @Mutation(() => TodoListEntity, { nullable: true })
   async RegistToDo(
     @Arg('todo') { firstName, lastName, todo }: TodoListInputType
   ) {
