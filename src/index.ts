@@ -6,7 +6,6 @@ import { ToDoListResolver } from './Resolver/TodoListResolver';
 import { UserInfoResolver } from './Resolver/UserInfoResolver';
 
 const startApollo = async () => {
-
   //ormconfig.jsonをもとにデータベースに接続
   await createConnection();
 
@@ -16,12 +15,19 @@ const startApollo = async () => {
     emitSchemaFile: true,
   });
 
+  // const mocks = {
+  //   DateTime: () => {
+  //     return new Date();
+  //   },
+  // };
+
   //スキーマからapolloサーバー立てる
   const apolloServer = new ApolloServer({
     schema,
-    context:({req,res})=>({req,res})
+    // mocks,
+    context: ({ req, res }) => ({ req, res }),
   });
-  
+
   apolloServer.listen(4000, () => {
     console.log('server started on http://localhost:4000/graphql');
   });
